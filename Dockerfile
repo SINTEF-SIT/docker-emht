@@ -20,7 +20,7 @@ CMD ["/sbin/my_init"]
 
 EXPOSE 9000
 
-ENV PLAY_VERSION 2.2.3
+ENV PLAY_VERSION 2.2.2
 ENV PATH $PATH:/opt/play-$PLAY_VERSION
 
 
@@ -34,7 +34,8 @@ RUN (cd /opt && unzip /tmp/play-$PLAY_VERSION.zip && rm -f /tmp/play-$PLAY_VERSI
 
 RUN (cd /opt && git clone https://github.com/tcarlyle/emht.git)
 
-CMD ["/bin/bash"]
+RUN cd /opt/emht  && play clean stage
+RUN target/universal/stage/bin/foo
 
 
 
