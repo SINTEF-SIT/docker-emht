@@ -34,7 +34,7 @@ RUN (cd /opt && unzip /tmp/play-$PLAY_VERSION.zip && rm -f /tmp/play-$PLAY_VERSI
 
 RUN (cd /opt && git clone https://github.com/tcarlyle/emht.git)
 
-RUN play clean compile stage
+CMD ["/bin/bash"]
 
-RUN target/start
+
 
