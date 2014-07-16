@@ -37,7 +37,7 @@ RUN cd
 RUN (cd /opt && git clone https://github.com/tcarlyle/emht.git)
 
 RUN cd /opt/emht  && play clean stage
-RUN target/universal/stage/bin/emht
-
+# RUN target/universal/stage/bin/emht
+RUN /opt/emht/target/universal/stage/bin/emht -DapplyEvolutions.default=true
 
 
