@@ -32,6 +32,8 @@ RUN apt-get install --no-install-recommends -y openjdk-7-jdk
 ADD http://downloads.typesafe.com/play/$PLAY_VERSION/play-$PLAY_VERSION.zip /tmp/play-$PLAY_VERSION.zip
 RUN (cd /opt && unzip /tmp/play-$PLAY_VERSION.zip && rm -f /tmp/play-$PLAY_VERSION.zip)
 
+RUN cd
+
 RUN (cd /opt && git clone https://github.com/tcarlyle/emht.git)
 
 RUN cd /opt/emht  && play clean stage
