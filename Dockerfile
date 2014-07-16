@@ -35,7 +35,7 @@ RUN (cd /opt && unzip /tmp/play-$PLAY_VERSION.zip && rm -f /tmp/play-$PLAY_VERSI
 RUN (cd /opt && git clone https://github.com/tcarlyle/emht.git)
 
 RUN cd /opt/emht  && play clean stage
-RUN target/universal/stage/bin/foo
+RUN target/universal/stage/bin/emht
 
 
 
