@@ -32,15 +32,13 @@ RUN apt-get install --no-install-recommends -y openjdk-7-jdk
 ADD http://downloads.typesafe.com/play/$PLAY_VERSION/play-$PLAY_VERSION.zip /tmp/play-$PLAY_VERSION.zip
 RUN (cd /opt && unzip /tmp/play-$PLAY_VERSION.zip && rm -f /tmp/play-$PLAY_VERSION.zip)
 
-RUN cd
+# adding an unique file just so that the git pull command is not cached
+ADD http://www.random.org/strings/?num=10&len=8&digits=on&upperalpha=on&loweralpha=on&unique=on&format=plain&rnd=new uuid
 
 RUN (cd /opt && git clone https://github.com/tcarlyle/emht.git)
 
-
-# adding an unique file just so that the git pull command is not cached
-ADD http://www.random.org/strings/?num=10&len=8&digits=on&upperalpha=on&loweralpha=on&unique=on&format=plain&rnd=new uuid
 RUN cd /opt/emht  && git pull
 RUN play clean stage
-RUN /opt/emht/target/universal/stage/bin/emht -DapplyEvolutions.default=true
+# run /opt/emht/target/universal/stage/bin/emht -DapplyEvolutions.default=true
 
 
