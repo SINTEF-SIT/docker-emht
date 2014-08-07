@@ -36,11 +36,11 @@ RUN cd
 
 RUN (cd /opt && git clone https://github.com/tcarlyle/emht.git)
 
+
 # adding an unique file just so that the git pull command is not cached
 ADD http://www.random.org/strings/?num=10&len=8&digits=on&upperalpha=on&loweralpha=on&unique=on&format=plain&rnd=new uuid
 RUN cd /opt/emht  && git pull
 RUN play clean stage
-RUN target/universal/stage/bin/emht
-
+RUN /opt/emht/target/universal/stage/bin/emht -DapplyEvolutions.default=true
 
 
