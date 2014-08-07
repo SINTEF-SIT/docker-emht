@@ -38,7 +38,7 @@ ADD http://www.random.org/strings/?num=10&len=8&digits=on&upperalpha=on&loweralp
 RUN (cd /opt && git clone https://github.com/tcarlyle/emht.git)
 
 RUN cd /opt/emht  && git pull
-RUN play clean stage
+RUN cd /opt/emht  && play clean stage
 # run /opt/emht/target/universal/stage/bin/emht -DapplyEvolutions.default=true
 
 
