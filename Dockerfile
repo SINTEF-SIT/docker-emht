@@ -24,10 +24,14 @@ ENV PLAY_VERSION 2.2.2
 ENV PATH $PATH:/opt/play-$PLAY_VERSION
 
 
+RUN add-apt-repository -y ppa:webupd8team/java
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install unzip git -y
-RUN apt-get install --no-install-recommends -y openjdk-7-jdk
+#RUN apt-get install --no-install-recommends -y openjdk-7-jdk
+RUN echo debconf shared/accepted-oracle-license-v1-1 select true | debconf-set-selections
+RUN echo debconf shared/accepted-oracle-license-v1-1 seen true | debconf-set-selections
+RUN apt-get install -y oracle-java8-installer
 
 ADD http://downloads.typesafe.com/play/$PLAY_VERSION/play-$PLAY_VERSION.zip /tmp/play-$PLAY_VERSION.zip
 RUN (cd /opt && unzip /tmp/play-$PLAY_VERSION.zip && rm -f /tmp/play-$PLAY_VERSION.zip)
@@ -39,6 +43,6 @@ RUN (cd /opt && git clone https://github.com/tcarlyle/emht.git)
 
 RUN cd /opt/emht  && git pull
 RUN cd /opt/emht  && play clean stage
-# run /opt/emht/target/universal/stage/bin/emht -DapplyEvolutions.default=true
 
-
+RUN mkdir -p /etc/my_init.d
+ADD emht.sh /etc/my_init.d/emht.sh
