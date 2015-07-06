@@ -2,7 +2,8 @@
 # sure you lock down to a specific version, not to `latest`!
 # See https://github.com/phusion/baseimage-docker/blob/master/Changelog.md for
 # a list of version numbers.
-FROM phusion/baseimage:0.9.11
+#FROM phusion/baseimage:0.9.11
+FROM ubuntu:14.10
 
 # Set correct environment variables.
 ENV HOME /root
@@ -13,7 +14,6 @@ ENV HOME /root
 # RUN /etc/my_init.d/00_regen_ssh_host_keys.sh
 
 # Use baseimage-docker's init system.
-CMD ["/sbin/my_init"]
 
 # ...put your own build instructions here...
 # based on mzkrelx / playframework2-dev
@@ -27,7 +27,7 @@ ENV PATH $PATH:/opt/play-$PLAY_VERSION
 RUN apt-get update
 RUN apt-get upgrade -y
 RUN apt-get install unzip git -y
-RUN apt-get install --no-install-recommends -y openjdk-7-jdk
+RUN apt-get install --no-install-recommends -y openjdk-8-jdk
 
 ADD http://downloads.typesafe.com/play/$PLAY_VERSION/play-$PLAY_VERSION.zip /tmp/play-$PLAY_VERSION.zip
 RUN (cd /opt && unzip /tmp/play-$PLAY_VERSION.zip && rm -f /tmp/play-$PLAY_VERSION.zip)
@@ -39,6 +39,6 @@ RUN (cd /opt && git clone https://github.com/tcarlyle/emht.git)
 
 RUN cd /opt/emht  && git pull
 RUN cd /opt/emht  && play clean stage
-# run /opt/emht/target/universal/stage/bin/emht -DapplyEvolutions.default=true
+CMD [ "/opt/emht/target/universal/stage/bin/emht -DapplyEvolutions.default=true"]
 
 
